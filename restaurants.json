@@ -1,0 +1,66 @@
+[
+  {
+    "id": "ekkallan",
+    "name": "Ekkällan Storgatan",
+    "address": "Storgatan 1, Linköping",
+    "lunchUrl": "https://ekkallanmatodryck.se/ekkallan-storgatan/",
+    "start": "Dagens lunch",
+    "end": "After work"
+  },
+  {
+    "id": "grand",
+    "name": "Brasserie Grand",
+    "address": "Platensgatan 4, Linköping",
+    "lunchUrl": "https://www.brasseriegrand.se/lunch",
+    "start": "Lunch V.",
+    "end": "Allergener"
+  },
+  {
+    "id": "von-dufva",
+    "name": "Restaurang von Dufva",
+    "address": "Gränden Duvan 3A, Linköping",
+    "lunchUrl": "https://stadsmissionenost.se/restaurang-von-dufva/lunch",
+    "start": "Dagens höjdpunkt",
+    "end": "Kontakta oss"
+  },
+  {
+    "id": "yogi",
+    "name": "Restaurang Yogi",
+    "address": "Platensgatan 5, Linköping",
+    "lunchUrl": "https://restaurangyogi.com/lunch",
+    "start": "Lunchmeny v.",
+    "end": "Öppettider"
+  },
+  {
+    "id": "cioccolata",
+    "name": "Cioccolata Bistro",
+    "address": "Ågatan 24, 582 22 Linköping",
+    "lunchUrl": "https://www.cioccolata.nu/lunch/",
+    "start": "DAGENS LUNCH",
+    "end": "Klicka här"
+  },
+  {
+    "id": "ok-smak-tak",
+    "name": "ÖK Smak & Tak",
+    "address": "Brandmannagatan 1, Linköping",
+    "lunchUrl": "https://oksmakochtak.se/lunchmeny/",
+    "start": "Måndag – fredag",
+    "end": "Ladda ner meny"
+  },
+  {
+    "id": "bon-bon",
+    "name": "Bon Bon Brasserie",
+    "address": "Stora torget 9, Linköping",
+    "lunchUrl": "https://www.bonbonbrasserie.se/lunch-meny",
+    "start": "Lunch v.",
+    "end": "À La Carte"
+  },
+  {
+    "id": "melins",
+    "name": "Melins Café & Bistro",
+    "address": "Repslagaregatan 19, Linköping",
+    "lunchUrl": "https://www.melinscafe.se/lunch",
+    "start": "LUNCH",
+    "end": "bottom of page"
+  }
+]

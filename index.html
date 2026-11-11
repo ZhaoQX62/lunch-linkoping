@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lunch Linköping</title>
+  <meta name="theme-color" content="#1f6f5c">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Lunch">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="title-row">
+      <h1 class="brand"><img src="icons/icon.svg" alt="" width="34" height="34">Lunch</h1>
+      <span id="today" class="today"></span>
+    </div>
+    <div class="day-nav">
+      <button id="btn-today" type="button" class="nav-btn">‹ Idag</button>
+      <button id="btn-next" type="button" class="nav-btn">Nästa dag ›</button>
+    </div>
+    <input id="search" type="search" placeholder="Sök restaurang eller rätt…" autocomplete="off">
+    <div id="updated" class="updated"></div>
+  </header>
+  <main id="list" class="list"></main>
+  <script src="app.js"></script>
+</body>
+</html>
