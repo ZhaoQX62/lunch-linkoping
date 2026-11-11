@@ -68,6 +68,11 @@ h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
   display: inline-block; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
   color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 2px 7px; margin-bottom: 6px;
 }
+.badge-old {
+  display: inline-block; font-size: .72rem; font-weight: 600; color: #8a5a00; background: #fbefd2;
+  border-radius: 6px; padding: 2px 7px; margin: 0 0 6px 4px;
+}
+@media (prefers-color-scheme: dark) { .badge-old { color: #f3c96b; background: #3a2e12; } }
 .menu p { margin: 0 0 4px; }
 .menu p.day { font-weight: 650; margin-top: 8px; }
 .menu p.price { color: var(--muted); font-size: .9rem; }

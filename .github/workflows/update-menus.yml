@@ -1,11 +1,23 @@
-# Refreshes menus.json every weekday morning and publishes the app to GitHub Pages.
+# Checks lunch menus on weekdays and publishes the app to GitHub Pages.
 # Enable in the repo: Settings -> Pages -> Source: "GitHub Actions".
+#
+# fetch-menus.mjs only refetches menus that aren't from the current week yet, so the later
+# checks mostly do nothing (no commit, no deploy). They catch restaurants that publish late
+# (often Monday after 10:00) and sites that were down at the first check.
 name: Update lunch menus
 
 on:
   schedule:
-    - cron: '30 7 * * 1-5'   # 07:30 UTC = 08:30/09:30 Swedish time, Mon–Fri
+    # Times are UTC. Swedish time = UTC+1 in winter, UTC+2 in summer.
+    - cron: '30 7 * * 1-5'   # 08:30 / 09:30
+    - cron: '30 9 * * 1-5'   # 10:30 / 11:30
+    - cron: '0 11 * * 1-5'   # 12:00 / 13:00
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Refetch all menus, even ones already from this week'
+        type: boolean
+        default: false
   push:
     branches: [main]
 
@@ -13,6 +25,11 @@ permissions:
   contents: write
   pages: write
   id-token: write
+
+# Never run two updates at once (they would both try to push menus.json).
+concurrency:
+  group: update-menus
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -25,16 +42,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node fetch-menus.mjs
+      - run: node fetch-menus.mjs ${{ inputs.force && '--force' || '' }}
       - name: Commit menus.json
+        id: commit
         run: |
           git config user.name "menu-bot"
           git config user.email "menu-bot@users.noreply.github.com"
           git add menus.json
-          git diff --cached --quiet || git commit -m "Update lunch menus"
-          git push
-      - uses: actions/upload-pages-artifact@v3
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Update lunch menus"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      # Scheduled checks that changed nothing skip the deploy; pushes and manual runs always deploy.
+      - if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
       - id: deploy
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         uses: actions/deploy-pages@v4

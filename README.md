@@ -12,6 +12,21 @@ A small personal PWA that shows today's lunch from a list of restaurants you cho
   Menus without weekday headings are shown in full.
 - `sw.js`, `manifest.webmanifest`, `icons/` – make it installable and work offline.
 
+## When menus are refreshed
+
+GitHub checks the menus Mon–Fri at 07:30, 09:30 and 11:00 UTC (08:30, 10:30, 12:00 Swedish winter time).
+Each check only refetches restaurants whose saved menu isn't from the current week yet (week number
+read from the menu, e.g. "v.46" or "Vecka 46"), or that have no week number at all. So:
+
+- Monday: restaurants that publish late (after 10:00) are picked up by the later checks.
+- Tue–Fri: usually nothing to do – no commit, no redeploy.
+- A site that is down keeps its last good menu instead of going blank.
+- Until a restaurant has published this week's menu, its card shows "Inte uppdaterad – meny för v.NN".
+
+To refetch right away: GitHub → Actions → "Update lunch menus" → **Run workflow**
+(tick "force" to refetch everything, even menus already from this week).
+Locally: `node fetch-menus.mjs` (or `node fetch-menus.mjs --force`).
+
 ## Run it on this computer
 
 ```bash

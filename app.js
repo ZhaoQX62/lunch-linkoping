@@ -98,6 +98,14 @@ function searchText(r) {
   return (r.name + '\n' + shown.join('\n')).toLowerCase();
 }
 
+// Warns when the restaurant hasn't published this week's menu yet (common early on Mondays).
+function weekBadge(m) {
+  const cur = isoWeek(new Date());
+  if (!m.week || m.week === cur) return '';
+  const text = m.week < cur || m.week - cur > 40 ? `Inte uppdaterad – meny för v.${m.week}` : `Meny för v.${m.week}`;
+  return ` <span class="badge-old">${text}</span>`;
+}
+
 function menuHtml(r) {
   const m = state.menus[r.id];
   if (!m) return `<div class="menu"><p class="err">Ingen meny hämtad än.</p></div>`;
@@ -109,17 +117,18 @@ function menuHtml(r) {
   const { lines, dayName, weekend, today, weekly } = dayView(r);
   const label = state.dayOffset === 0 ? `Idag · ${dayName}` : dayName;
   const full = `<div class="full">${lines.map(lineHtml).join('')}</div>`;
+  const badge = weekBadge(m);
 
   if (today) {
     return `<div class="menu">
-      <span class="label">${label}</span>
+      <span class="label">${label}</span>${badge}
       ${today.map(lineHtml).join('')}
       ${weekly.length ? `<div class="weekly">${weekly.map(lineHtml).join('')}</div>` : ''}
       <details><summary>Hela veckans meny</summary>${full}</details>
     </div>`;
   }
   return `<div class="menu">
-    <span class="label">${weekend ? 'Helg – veckans meny' : 'Veckans meny'}</span>
+    <span class="label">${weekend ? 'Helg – veckans meny' : 'Veckans meny'}</span>${badge}
     ${full}
   </div>`;
 }
@@ -181,9 +190,11 @@ async function init() {
 
   const upd = document.getElementById('updated');
   if (state.updated) {
-    const stale = isoWeek(state.updated) !== isoWeek(now);
-    upd.textContent = `Menyer hämtade ${state.updated.toLocaleString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` +
-      (stale ? ' – från en tidigare vecka!' : '');
+    // Per-restaurant "not updated" badges cover stale menus; here just say how many are waiting.
+    const cur = isoWeek(now);
+    const waiting = state.restaurants.filter((r) => { const m = state.menus[r.id]; return m?.ok && m.week && m.week !== cur; }).length;
+    upd.textContent = `Menyer uppdaterade ${state.updated.toLocaleString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` +
+      (waiting ? ` · ${waiting} väntar på veckans meny` : '');
   }
   render();
 }
