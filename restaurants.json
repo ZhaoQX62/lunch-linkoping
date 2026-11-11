@@ -40,6 +40,14 @@
     "end": "Klicka här"
   },
   {
+    "id": "bouquet",
+    "name": "Brasserie Bouquet",
+    "address": "Tanneforsgatan 8, 582 23 Linköping",
+    "lunchUrl": "https://brasseriebouquet.se/lunch",
+    "start": "Veckans lunch",
+    "end": "Tarte Flambée"
+  },
+  {
     "id": "ok-smak-tak",
     "name": "ÖK Smak & Tak",
     "address": "Brandmannagatan 1, Linköping",

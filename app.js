@@ -76,21 +76,41 @@ function lineHtml(l) {
   return `<p class="${cls}">${esc(l)}</p>`;
 }
 
-function menuHtml(r) {
+// What a card shows for the selected day: that day's dishes + weekly dishes,
+// or the whole text when the menu has no weekday headings (or it's the weekend).
+function dayView(r) {
   const m = state.menus[r.id];
-  if (!m) return `<div class="menu"><p class="err">Ingen meny hämtad än.</p></div>`;
-  if (!m.ok) return `<div class="menu"><p class="err">Kunde inte läsa menyn (${esc(m.error)}). Öppna lunchsidan nedan.</p></div>`;
-
+  if (!m?.ok) return null;
   const lines = m.text.split('\n');
   const sel = selectedDate();
   const dayName = DAYS[sel.getDay()];
   const weekend = sel.getDay() === 0 || sel.getDay() === 6;
   const today = weekend ? null : todaysLines(lines, dayName);
+  if (today && today.length) return { lines, dayName, weekend, today, weekly: weeklyLines(lines) };
+  return { lines, dayName, weekend, today: null, weekly: [] };
+}
+
+// Text the search matches against: only what's on screen for the selected day
+// (not the collapsed "Hela veckans meny").
+function searchText(r) {
+  const v = dayView(r);
+  const shown = !v ? [] : v.today ? [...v.today, ...v.weekly] : v.lines;
+  return (r.name + '\n' + shown.join('\n')).toLowerCase();
+}
+
+function menuHtml(r) {
+  const m = state.menus[r.id];
+  if (!m) return `<div class="menu"><p class="err">Ingen meny hämtad än.</p></div>`;
+  if (!m.ok) {
+    const why = /HTTP 403/.test(m.error) ? 'Sidan tillåter inte automatisk hämtning.' : `Kunde inte läsa menyn (${esc(m.error)}).`;
+    return `<div class="menu"><p class="err">${why} Tryck på <a href="${esc(r.lunchUrl)}" target="_blank" rel="noopener">Lunchsida ↗</a> för dagens meny.</p></div>`;
+  }
+
+  const { lines, dayName, weekend, today, weekly } = dayView(r);
   const label = state.dayOffset === 0 ? `Idag · ${dayName}` : dayName;
   const full = `<div class="full">${lines.map(lineHtml).join('')}</div>`;
 
-  if (today && today.length) {
-    const weekly = weeklyLines(lines);
+  if (today) {
     return `<div class="menu">
       <span class="label">${label}</span>
       ${today.map(lineHtml).join('')}
@@ -107,7 +127,7 @@ function menuHtml(r) {
 function render() {
   const q = state.query.trim().toLowerCase();
   const items = state.restaurants
-    .filter((r) => !q || r.name.toLowerCase().includes(q) || (state.menus[r.id]?.text || '').toLowerCase().includes(q))
+    .filter((r) => !q || searchText(r).includes(q))
     // Order follows restaurants.json; favorites float to the top (sort is stable).
     .sort((a, b) => state.favs.has(b.id) - state.favs.has(a.id));
 
