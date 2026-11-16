@@ -14,9 +14,16 @@ A small personal PWA that shows today's lunch from a list of restaurants you cho
 
 ## When menus are refreshed
 
-GitHub checks the menus every hour on weekdays (at :17 past, UTC). GitHub starts scheduled runs
-late on small repos – often by hours – so an hourly schedule makes sure some check still lands in
-the morning whatever the delay is. Each check only refetches restaurants whose saved menu isn't from the current week yet (week number
+**Main trigger – Task Scheduler on this PC:** the task "Lunch Linkoping - update menus" runs
+`tools/trigger-menu-update.ps1` Mon–Fri at 09:00, 10:30 and 12:00. It asks GitHub to start the
+workflow right away, using the GitHub login Git already has saved (no token stored anywhere).
+It only runs while the PC is on and you're logged in; a missed time runs as soon as the PC is back.
+Log: `%LOCALAPPDATA%\LunchLinkoping\trigger.log`.
+Re-create it (e.g. after moving this folder): `powershell -ExecutionPolicy Bypass -File tools\install-task.ps1`.
+Remove it: `Unregister-ScheduledTask -TaskName 'Lunch Linkoping - update menus' -Confirm:$false`.
+
+**Backup – GitHub's own schedule:** every hour on weekdays (at :17 past, UTC). GitHub starts these
+late on small repos (7.5–8.5 hours in Nov 2026), so they only catch up later in the day. Each check only refetches restaurants whose saved menu isn't from the current week yet (week number
 read from the menu, e.g. "v.46" or "Vecka 46"), or that have no week number at all. So:
 
 - Monday: restaurants that publish late (after 10:00) are picked up by the later checks.
