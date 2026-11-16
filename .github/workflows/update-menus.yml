@@ -1,17 +1,19 @@
 # Checks lunch menus on weekdays and publishes the app to GitHub Pages.
 # Enable in the repo: Settings -> Pages -> Source: "GitHub Actions".
 #
-# fetch-menus.mjs only refetches menus that aren't from the current week yet, so the later
-# checks mostly do nothing (no commit, no deploy). They catch restaurants that publish late
-# (often Monday after 10:00) and sites that were down at the first check.
+# fetch-menus.mjs only refetches menus that aren't from the current week yet, so most
+# checks do nothing (no commit, no deploy). They catch restaurants that publish late
+# (often Monday after 10:00) and sites that were down at an earlier check.
+#
+# Why hourly: GitHub starts scheduled runs late on small repos (observed 7.5–8.5 hours in
+# Nov 2026), and can skip some. A check every hour means that whatever the delay is, some
+# check lands during the morning. Each check takes ~20 s; free for a public repo.
 name: Update lunch menus
 
 on:
   schedule:
-    # Times are UTC. Swedish time = UTC+1 in winter, UTC+2 in summer.
-    - cron: '30 7 * * 1-5'   # 08:30 / 09:30
-    - cron: '30 9 * * 1-5'   # 10:30 / 11:30
-    - cron: '0 11 * * 1-5'   # 12:00 / 13:00
+    # Every hour at :17 (off the busy :00/:30 slots), Monday 00:17 UTC to Friday 23:17 UTC.
+    - cron: '17 * * * 1-5'
   workflow_dispatch:
     inputs:
       force:

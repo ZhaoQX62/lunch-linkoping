@@ -25,30 +25,8 @@
     <input id="search" type="search" placeholder="Sök restaurang eller rätt…" autocomplete="off">
     <div class="updated-row">
       <div id="updated" class="updated"></div>
-      <button id="btn-refresh" type="button" class="refresh-btn">↻ Uppdatera</button>
     </div>
   </header>
-
-  <dialog id="token-dialog" class="token-dialog">
-    <form method="dialog" id="token-form">
-      <h2>Uppdatera menyer</h2>
-      <p>Knappen startar menyhämtningen på GitHub. Det kräver en GitHub-nyckel (token), som bara sparas i den här webbläsaren.</p>
-      <ol>
-        <li>Öppna <a id="token-new-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → ny fine-grained token</a>.</li>
-        <li><b>Repository access:</b> Only select repositories → <code id="token-repo"></code></li>
-        <li><b>Permissions:</b> Actions → <b>Read and write</b>. Inget annat.</li>
-        <li>Skapa, kopiera och klistra in här:</li>
-      </ol>
-      <input id="token-input" type="password" autocomplete="off" placeholder="github_pat_…" spellcheck="false">
-      <p class="token-alt">Eller utan nyckel: <a id="actions-link" target="_blank" rel="noopener">öppna GitHub och tryck “Run workflow”</a>.</p>
-      <div class="token-actions">
-        <button type="button" id="token-forget" class="link-btn">Glöm sparad nyckel</button>
-        <span style="flex:1"></span>
-        <button type="button" id="token-cancel" class="nav-btn ghost">Avbryt</button>
-        <button id="token-save" value="save" class="nav-btn">Spara och uppdatera</button>
-      </div>
-    </form>
-  </dialog>
   <main id="list" class="list"></main>
   <script src="app.js"></script>
 </body>

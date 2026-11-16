@@ -51,31 +51,6 @@ h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
 }
 .updated-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
 .updated { color: var(--muted); font-size: .78rem; flex: 1; }
-.updated.busy { color: var(--accent); }
-.updated.error { color: #b3261e; }
-.refresh-btn {
-  flex: none; font: inherit; font-size: .8rem; font-weight: 600; color: var(--accent);
-  background: none; border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; cursor: pointer;
-}
-.refresh-btn:disabled { opacity: .5; cursor: default; }
-.token-dialog {
-  width: min(440px, calc(100vw - 32px)); border: 1px solid var(--border); border-radius: 14px;
-  background: var(--card); color: var(--text); padding: 16px;
-}
-.token-dialog::backdrop { background: rgba(0, 0, 0, .45); }
-.token-dialog h2 { margin: 0 0 8px; font-size: 1.15rem; }
-.token-dialog p, .token-dialog li { font-size: .9rem; }
-.token-dialog ol { padding-left: 20px; margin: 8px 0; }
-.token-dialog a { color: var(--accent); }
-.token-dialog code { font-size: .85rem; }
-#token-input {
-  width: 100%; padding: 10px 12px; font: inherit; font-family: ui-monospace, monospace; font-size: .85rem;
-  color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-}
-.token-alt { color: var(--muted); }
-.token-actions { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
-.nav-btn.ghost { background: none; color: var(--muted); }
-.link-btn { background: none; border: 0; padding: 0; font: inherit; font-size: .8rem; color: var(--muted); text-decoration: underline; cursor: pointer; }
 .list { padding: 12px 16px 32px; display: grid; gap: 12px; max-width: 720px; margin: 0 auto; }
 .card {
   background: var(--card); border: 1px solid var(--border); border-radius: 14px;

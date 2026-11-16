@@ -14,8 +14,9 @@ A small personal PWA that shows today's lunch from a list of restaurants you cho
 
 ## When menus are refreshed
 
-GitHub checks the menus Mon–Fri at 07:30, 09:30 and 11:00 UTC (08:30, 10:30, 12:00 Swedish winter time).
-Each check only refetches restaurants whose saved menu isn't from the current week yet (week number
+GitHub checks the menus every hour on weekdays (at :17 past, UTC). GitHub starts scheduled runs
+late on small repos – often by hours – so an hourly schedule makes sure some check still lands in
+the morning whatever the delay is. Each check only refetches restaurants whose saved menu isn't from the current week yet (week number
 read from the menu, e.g. "v.46" or "Vecka 46"), or that have no week number at all. So:
 
 - Monday: restaurants that publish late (after 10:00) are picked up by the later checks.
@@ -23,15 +24,10 @@ read from the menu, e.g. "v.46" or "Vecka 46"), or that have no week number at a
 - A site that is down keeps its last good menu instead of going blank.
 - Until a restaurant has published this week's menu, its card shows "Inte uppdaterad – meny för v.NN".
 
-Note: GitHub's scheduled runs can start hours late, so don't rely on them for the morning.
+GitHub turns off scheduled workflows in public repos after 60 days without activity. The weekly
+menu commits should count as activity; if the schedule ever stops, re-enable it under Actions.
 
-**↻ Uppdatera button (in the app):** starts the workflow and reloads the menus when it's done (~1 min).
-The first time, it asks for a GitHub *fine-grained* token, saved only in that browser:
-GitHub → Settings → Developer settings → Fine-grained tokens → New token →
-Repository access: *Only select repositories* → `lunch-linkoping` → Permissions: **Actions: Read and write** (nothing else).
-Pick an expiry you're comfortable with; when it expires the app asks for a new one. "Glöm sparad nyckel" removes it.
-
-Without a token: GitHub → Actions → "Update lunch menus" → **Run workflow**
+To refetch right away: GitHub → Actions → "Update lunch menus" → **Run workflow**
 (tick "force" to refetch everything, even menus already from this week).
 Locally: `node fetch-menus.mjs` (or `node fetch-menus.mjs --force`).
 
