@@ -23,7 +23,15 @@ read from the menu, e.g. "v.46" or "Vecka 46"), or that have no week number at a
 - A site that is down keeps its last good menu instead of going blank.
 - Until a restaurant has published this week's menu, its card shows "Inte uppdaterad – meny för v.NN".
 
-To refetch right away: GitHub → Actions → "Update lunch menus" → **Run workflow**
+Note: GitHub's scheduled runs can start hours late, so don't rely on them for the morning.
+
+**↻ Uppdatera button (in the app):** starts the workflow and reloads the menus when it's done (~1 min).
+The first time, it asks for a GitHub *fine-grained* token, saved only in that browser:
+GitHub → Settings → Developer settings → Fine-grained tokens → New token →
+Repository access: *Only select repositories* → `lunch-linkoping` → Permissions: **Actions: Read and write** (nothing else).
+Pick an expiry you're comfortable with; when it expires the app asks for a new one. "Glöm sparad nyckel" removes it.
+
+Without a token: GitHub → Actions → "Update lunch menus" → **Run workflow**
 (tick "force" to refetch everything, even menus already from this week).
 Locally: `node fetch-menus.mjs` (or `node fetch-menus.mjs --force`).
 

@@ -1,5 +1,6 @@
 const DAYS = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
-const DAY_RE = /^(måndag|tisdag|onsdag|torsdag|fredag|lördag|söndag)\b/i;
+// A day heading like "Måndag" or "Måndag:", but not an opening-hours range like "Måndag – Fredag 11–14".
+const DAY_RE = /^(måndag|tisdag|onsdag|torsdag|fredag|lördag|söndag)\b(?!\s*[–—-]\s*(måndag|tisdag|onsdag|torsdag|fredag|lördag|söndag))/i;
 const FAV_KEY = 'lunch-favorites';
 
 // dayOffset: 0 = today, 1 = tomorrow … never past Friday of this week.
@@ -171,33 +172,144 @@ async function getJson(url) {
   return res.json();
 }
 
-async function init() {
-  const now = new Date();
-  renderHeader();
+async function loadData() {
+  const [restaurants, menus] = await Promise.all([
+    getJson('restaurants.json'),
+    getJson('menus.json').catch(() => ({ menus: {} })),
+  ]);
+  state.restaurants = restaurants;
+  state.menus = menus.menus || {};
+  state.updated = menus.updated ? new Date(menus.updated) : null;
+}
 
+function setStatus(text, kind = '') {
+  const el = document.getElementById('updated');
+  el.textContent = text;
+  el.className = 'updated' + (kind ? ' ' + kind : '');
+}
+
+function showUpdated() {
+  if (!state.updated) return setStatus('');
+  // Per-restaurant "not updated" badges cover stale menus; here just say how many are waiting.
+  const cur = isoWeek(new Date());
+  const waiting = state.restaurants.filter((r) => { const m = state.menus[r.id]; return m?.ok && m.week && m.week !== cur; }).length;
+  setStatus(`Menyer uppdaterade ${state.updated.toLocaleString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` +
+    (waiting ? ` · ${waiting} väntar på veckans meny` : ''));
+}
+
+async function init() {
+  renderHeader();
   try {
-    const [restaurants, menus] = await Promise.all([
-      getJson('restaurants.json'),
-      getJson('menus.json').catch(() => ({ menus: {} })),
-    ]);
-    state.restaurants = restaurants;
-    state.menus = menus.menus || {};
-    state.updated = menus.updated ? new Date(menus.updated) : null;
+    await loadData();
   } catch (e) {
     document.getElementById('list').innerHTML = `<p class="empty">Kunde inte ladda data: ${esc(String(e.message))}</p>`;
     return;
   }
-
-  const upd = document.getElementById('updated');
-  if (state.updated) {
-    // Per-restaurant "not updated" badges cover stale menus; here just say how many are waiting.
-    const cur = isoWeek(now);
-    const waiting = state.restaurants.filter((r) => { const m = state.menus[r.id]; return m?.ok && m.week && m.week !== cur; }).length;
-    upd.textContent = `Menyer uppdaterade ${state.updated.toLocaleString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}` +
-      (waiting ? ` · ${waiting} väntar på veckans meny` : '');
-  }
+  showUpdated();
   render();
 }
+
+// ---- Manual refresh: starts the "Update lunch menus" workflow on GitHub ----
+// The token is typed in by the user and kept only in this browser's localStorage.
+const GH_REPO = 'ZhaoQX62/lunch-linkoping';
+const GH_WORKFLOW = 'update-menus.yml';
+const TOKEN_KEY = 'lunch-gh-token';
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function getToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch { return ''; } }
+function setToken(t) { try { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); } catch {} }
+
+async function gh(path, token, opts = {}) {
+  const res = await fetch(`https://api.github.com/repos/${GH_REPO}${path}`, {
+    ...opts,
+    headers: { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`, ...(opts.headers || {}) },
+    cache: 'no-store',
+  });
+  if (res.status === 401 || res.status === 403 || res.status === 404) {
+    const err = new Error('auth'); err.status = res.status; throw err;
+  }
+  if (!res.ok) throw new Error(`GitHub svarade ${res.status}`);
+  return res.status === 204 ? null : res.json();
+}
+
+let refreshing = false;
+async function refreshMenus(token) {
+  if (refreshing) return;
+  refreshing = true;
+  const btn = document.getElementById('btn-refresh');
+  btn.disabled = true;
+  const before = state.updated?.getTime() || 0;
+  const started = Date.now();
+  try {
+    setStatus('Startar hämtning på GitHub…', 'busy');
+    await gh(`/actions/workflows/${GH_WORKFLOW}/dispatches`, token, { method: 'POST', body: JSON.stringify({ ref: 'main' }) });
+
+    // Find the run we just started, then wait for it to finish (fetch + deploy ≈ 1 min).
+    let run = null;
+    for (let i = 0; i < 60; i++) {
+      await sleep(i < 3 ? 3000 : 5000);
+      const data = await gh(`/actions/workflows/${GH_WORKFLOW}/runs?event=workflow_dispatch&per_page=3`, token);
+      run = (data.workflow_runs || []).find((r) => new Date(r.created_at).getTime() >= started - 60000) || run;
+      const secs = Math.round((Date.now() - started) / 1000);
+      setStatus(`Hämtar menyer… ${secs} s`, 'busy');
+      if (run?.status === 'completed') break;
+    }
+    if (!run || run.status !== 'completed') throw new Error('Tog för lång tid – försök igen om en stund');
+    if (run.conclusion !== 'success') throw new Error(`Hämtningen misslyckades (${run.conclusion})`);
+
+    // The site can take a few seconds to serve the new menus.json after deploy.
+    for (let i = 0; i < 6; i++) {
+      await loadData();
+      if ((state.updated?.getTime() || 0) !== before) break;
+      await sleep(5000);
+    }
+    render();
+    showUpdated();
+    if ((state.updated?.getTime() || 0) === before) {
+      setStatus(document.getElementById('updated').textContent.replace(/^Menyer uppdaterade/, 'Inga nya menyer · senast uppdaterade'));
+    }
+  } catch (e) {
+    if (e.message === 'auth') {
+      setStatus('GitHub-nyckeln fungerar inte (fel, utgången eller saknar behörighet). Ange en ny.', 'error');
+      openTokenDialog();
+    } else {
+      setStatus(`Kunde inte uppdatera: ${e.message}`, 'error');
+    }
+  } finally {
+    refreshing = false;
+    btn.disabled = false;
+  }
+}
+
+function openTokenDialog() {
+  const dlg = document.getElementById('token-dialog');
+  document.getElementById('token-input').value = '';
+  dlg.showModal();
+}
+
+document.getElementById('token-repo').textContent = GH_REPO.split('/')[1];
+document.getElementById('actions-link').href = `https://github.com/${GH_REPO}/actions/workflows/${GH_WORKFLOW}`;
+document.getElementById('btn-refresh').addEventListener('click', () => {
+  const token = getToken();
+  token ? refreshMenus(token) : openTokenDialog();
+});
+document.getElementById('token-dialog').addEventListener('close', () => {
+  const dlg = document.getElementById('token-dialog');
+  const token = document.getElementById('token-input').value.trim();
+  document.getElementById('token-input').value = '';
+  if (dlg.returnValue === 'save' && token) {
+    setToken(token);
+    refreshMenus(token);
+  }
+});
+document.getElementById('token-cancel').addEventListener('click', () => {
+  document.getElementById('token-dialog').close('cancel');
+});
+document.getElementById('token-forget').addEventListener('click', () => {
+  setToken('');
+  document.getElementById('token-dialog').close('cancel');
+  setStatus('Sparad GitHub-nyckel borttagen.');
+});
 
 document.getElementById('btn-next').addEventListener('click', () => {
   if (!canGoNext()) return;
