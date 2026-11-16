@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-16T07:55:07.032Z",
+  "updated": "2026-11-16T13:59:35.147Z",
   "menus": {
-    "von-dufva": {
+    "ekkallan": {
       "ok": true,
-      "text": "Dagens höjdpunkt 142:-\nVecka 47\nMÅNDAG\nGrillad kycklingfilé serveras med rostad potatis,\nugnsbakade chilirostade morötter och fetaostkräm. (L)\nTISDAG\nStekt fläskytterfilé och rostad potatis serveras med\nkrämig sweetchilisås och champinjoner.\nONSDAG\nBiffstroganoff med champinjoner, dijonsenap och crèmefraiche\nserveras med potatispuré och saltgurka. (L)\nTORSDAG\nKålpudding med kokt potatis, gräddsås,\nsmält smör och rårörda lingon.\nFREDAG\nFläskschnitzel med råriven stekt potatis,bearnaisesås, rödvinssky och citron. (G)\nVeckans vegetariska 135: -\nFylld tortelloni med ricotta och spenat serveras i krämig parmesansås och toppas med friterad grönkål och rostade frön. (G,L)\nVeckans fisk 159: -\nStekt lax med duschesspotatis, sandefjordsås med tångkaviar och gräslök, samt stekt sparris, citron och dill. (L)\nVeckans sallad 138: -\nGrekisk sallad med fetaost, romansallad, tomat, gurka, rödlök,\noliver, paprika serveras med tzatziki. (L)\nI lunchen ingår salladsbuffé, bröd, stilla vatten samt kaffe och kaka\nVarmt Välkomna!",
+      "text": "Dagens lunch\nStorgatan\nPris 139 kr\n(Avhämtning 125kr)\nMåndag – Fredag 11:00 – 14:30\nInkl. sallad, bröd, kaffe.\nVecka 47\nMåndag\nFJÄRILSKOTLETT MED STEKT POTATIS, BACONSÅS OCH ROSTADE BETOR\nFISKGRATÄNG MED DILL & RÄKOR, GRÖNSAKER, POTATIS\nTisdag\nPEPPARBIFFAR MED COGNACGRÄDDSÅS, GELÉ, POTATISPURÉ, ROTFRUKTER\nCITRONPOCHERAD FISKFILÉ MED VITVINSSÅS, POTATIS OCH SOCKERÄRTOR\nOnsdag\nKYCKLINGSCHNITZEL MED UGNSBAKAD POTATIS, PERSILJESMÖR, ÄRTOR, SKYSÅS\nPANERAD SPÄTTA MED REMOULADSÅS, POTATIS, ÄRTOR\nTorsdag\nRAGGMUNK MED STEKT FLÄSK OCH LINGON\nLAX MED ROMSÅS, CITRONETTE OCH KLYFTPOTATIS\nFredag\nWALLENBERGARE MED KARLJOHAN SVAMPSÅS, VINBÄRSGELÉ, POTATISMOS, ÄRTOR\nSTEKT FISKFILÉ MED DILLSÅS, CITRONOLJA, POTATIS",
       "week": 47,
       "year": 2026,
-      "config": "https://stadsmissionenost.se/restaurang-von-dufva/lunch|Dagens höjdpunkt|Kontakta oss|"
+      "config": "https://ekkallanmatodryck.se/ekkallan-storgatan/|Dagens lunch|After work|"
     },
     "grand": {
       "ok": true,
@@ -15,25 +15,12 @@
       "year": 2026,
       "config": "https://www.brasseriegrand.se/lunch|Lunch V.|Allergener|"
     },
-    "melins": {
+    "von-dufva": {
       "ok": true,
-      "text": "LUNCH\nLunchen serveras på vardagar mellan kl: 11.15-13.30\nPå menyn hittar ni maträtter med inspiration från medelhavet.\nVi har alltid en fiskrätt och vegetariska alternativ. Utöver dagens rätter kan du välja goda pastarätter och fräscha sallader, poke bowls och matvåfflor.\nVeckans lunch\nsalladsbuffé ingår\nUngsbakad lax med paq choi, ris, salladslök och ponzusås 139 kr\nRaggmunksvåffla med bacon, rårörda lingon och grönkålschips 139 kr\nPasta Alfredo 145 kr\nBlomkålssoppa med ostsmörgås 109 kr\nZucchini och fetaostsallad 99 kr\nVeckans erbjudande 99 kr\nFajitakykling med ris, het mangosalsa, salladslök, nachos och jalapeños\nRaggmunksvåffla med bacon, grönkålschips och rårörda lingon 139 kr\nPasta Alfredo 145 kr\nBlomkålssoppa och ostsmörgås 109 kr\nVeckans erbjudande 99 kr\nSalladsbuffe samt egenrostad kaffe ingår\nVälkomna!",
-      "week": null,
-      "config": "https://www.melinscafe.se/lunch|LUNCH|bottom of page|"
-    },
-    "ok-smak-tak": {
-      "ok": true,
-      "text": "Måndag – fredag · 11.00 – 14.00\nlunch\nDagens rätt 155:- / Dagens vegetariska 150:- före kl 13, sedan 130:-\nInklusive sallad, bröd, smör och kaffe/kaka.\nAvhämtning 125:-\nalltid på lunchen\nKlassisk\nÖKs klassiska köttbullar\nGräddsås, rårörda lingon och pressgurka. Serveras med potatispuré. (Ä, L)\n170/155:–\nVeckans sallad\nKyckling Bowl\nMarinerade nudlar, svensk kyckling, sojamajonnäs, mango, sjögrässallad. (Sesam, Baljväxt, Ä)\n170/155:–\nveckans lunch\nV.47\nMåndag\nRostad karré\nSmörglaserade borlottibönor, broccoli och skysås. (Baljväxt, L)\nVeg\nFriterad naja ost\nBulgursallad, chilimajonnäs och rostad mandel. (Ä, G)\nTisdag\nChorizo\nColeslaw, stekt potatis, rödvinssky och spenatsallad. (Ä)\nVeg\nBroccolifritters\nRis, sweet chili och pak choi. (G)\nOnsdag\nFärsbiff på vilt från Basund Gård\nFetaostkräm, gröna bönor och picklad lök. (Ä, L)\nVeg\nSpetskål\nGrönkålspesto, risonisallad och örtmajonnäs. (G, Ä)\nTorsdag\nBakad fisk\nSemitorkad tomat, smörig kålbuljong och potatispuré. (L)\nVeg\nRostad blomkål\nBakad tomat, smörig kålbuljong och selleri- och kålsallad. (L)\nFredag\nPulled pork- hamburgare\nRödkålsslaw, saltgurka, rostad majs och friterad potatis. (G, Ä)\nVeg\nPanerad rotselleri\nRödkålsslaw, saltgurka, rostad majs och friterad potatis. (G, Ä)",
+      "text": "Dagens höjdpunkt 142:-\nVecka 47\nMÅNDAG\nGrillad kycklingfilé serveras med rostad potatis,\nugnsbakade chilirostade morötter och fetaostkräm. (L)\nTISDAG\nStekt fläskytterfilé och rostad potatis serveras med\nkrämig sweetchilisås och champinjoner.\nONSDAG\nBiffstroganoff med champinjoner, dijonsenap och crèmefraiche\nserveras med potatispuré och saltgurka. (L)\nTORSDAG\nKålpudding med kokt potatis, gräddsås,\nsmält smör och rårörda lingon.\nFREDAG\nFläskschnitzel med råriven stekt potatis,bearnaisesås, rödvinssky och citron. (G)\nVeckans vegetariska 135: -\nFylld tortelloni med ricotta och spenat serveras i krämig parmesansås och toppas med friterad grönkål och rostade frön. (G,L)\nVeckans fisk 159: -\nStekt lax med duschesspotatis, sandefjordsås med tångkaviar och gräslök, samt stekt sparris, citron och dill. (L)\nVeckans sallad 138: -\nGrekisk sallad med fetaost, romansallad, tomat, gurka, rödlök,\noliver, paprika serveras med tzatziki. (L)\nI lunchen ingår salladsbuffé, bröd, stilla vatten samt kaffe och kaka\nVarmt Välkomna!",
       "week": 47,
       "year": 2026,
-      "config": "https://oksmakochtak.se/lunchmeny/|Måndag – fredag||Ladda ner meny"
-    },
-    "bon-bon": {
-      "ok": true,
-      "text": "Lunch v.46\nVardagar kl 11.30 - 14.00\nTill lunchen ingår bordsvatten, bröd, färskost och kaffe.\nDagens Rätt\n155\nMåndag\nSjömansbiff på svenskt nötinnanlår med saltgurka och smetana\n155\nTisdag\nRaggmunk med svenskt stekt fläsk, rårörda lingon och grädde\n155\nOnsdag\nFriterad svensk fläskschnitzel med citronsky, tranbärssylt och österrikisk potatissallad\n155\nTorsdag\nKlassisk Wallenbergare med potatispuré, skirat smör, gröna ärtor och rårörda lingon\n155\nFredag\nSvensk kycklingfilé med rostad potatis, BBQ-sås och krämig majs\n155\nVeckans Val\n159\nVeckans Special\nGlasnudelsallad med friterade räkor, chilimajonnäs, sesamfrön och lime\n159\n169\nVeckans Fisk\nGravad lax med dillstuvad potatis, gurk- och fänkålssallad samt hovmästarsås\n169\n149\nVeckans Vegetariska\nLinsgryta med sötpotatis och halloumi\n149",
-      "week": 46,
-      "year": 2026,
-      "config": "https://www.bonbonbrasserie.se/lunch-meny|Lunch v.|À La Carte|"
+      "config": "https://stadsmissionenost.se/restaurang-von-dufva/lunch|Dagens höjdpunkt|Kontakta oss|"
     },
     "yogi": {
       "ok": true,
@@ -56,12 +43,25 @@
       "year": 2026,
       "config": "https://brasseriebouquet.se/lunch|Veckans lunch|Tarte Flambée|"
     },
-    "ekkallan": {
+    "ok-smak-tak": {
       "ok": true,
-      "text": "Dagens lunch\nStorgatan\nPris 139 kr\n(Avhämtning 125kr)\nMåndag – Fredag 11:00 – 14:30\nInkl. sallad, bröd, kaffe.\nVecka 47\nMåndag\nFJÄRILSKOTLETT MED STEKT POTATIS, BACONSÅS OCH ROSTADE BETOR\nFISKGRATÄNG MED DILL & RÄKOR, GRÖNSAKER, POTATIS\nTisdag\nPEPPARBIFFAR MED COGNACGRÄDDSÅS, GELÉ, POTATISPURÉ, ROTFRUKTER\nCITRONPOCHERAD FISKFILÉ MED VITVINSSÅS, POTATIS OCH SOCKERÄRTOR\nOnsdag\nKYCKLINGSCHNITZEL MED UGNSBAKAD POTATIS, PERSILJESMÖR, ÄRTOR, SKYSÅS\nPANERAD SPÄTTA MED REMOULADSÅS, POTATIS, ÄRTOR\nTorsdag\nRAGGMUNK MED STEKT FLÄSK OCH LINGON\nLAX MED ROMSÅS, CITRONETTE OCH KLYFTPOTATIS\nFredag\nWALLENBERGARE MED KARLJOHAN SVAMPSÅS, VINBÄRSGELÉ, POTATISMOS, ÄRTOR\nSTEKT FISKFILÉ MED DILLSÅS, CITRONOLJA, POTATIS",
+      "text": "Måndag – fredag · 11.00 – 14.00\nlunch\nDagens rätt 155:- / Dagens vegetariska 150:- före kl 13, sedan 130:-\nInklusive sallad, bröd, smör och kaffe/kaka.\nAvhämtning 125:-\nalltid på lunchen\nKlassisk\nÖKs klassiska köttbullar\nGräddsås, rårörda lingon och pressgurka. Serveras med potatispuré. (Ä, L)\n170/155:–\nVeckans sallad\nKyckling Bowl\nMarinerade nudlar, svensk kyckling, sojamajonnäs, mango, sjögrässallad. (Sesam, Baljväxt, Ä)\n170/155:–\nveckans lunch\nV.47\nMåndag\nRostad karré\nSmörglaserade borlottibönor, broccoli och skysås. (Baljväxt, L)\nVeg\nFriterad naja ost\nBulgursallad, chilimajonnäs och rostad mandel. (Ä, G)\nTisdag\nChorizo\nColeslaw, stekt potatis, rödvinssky och spenatsallad. (Ä)\nVeg\nBroccolifritters\nRis, sweet chili och pak choi. (G)\nOnsdag\nFärsbiff på vilt från Basund Gård\nFetaostkräm, gröna bönor och picklad lök. (Ä, L)\nVeg\nSpetskål\nGrönkålspesto, risonisallad och örtmajonnäs. (G, Ä)\nTorsdag\nBakad fisk\nSemitorkad tomat, smörig kålbuljong och potatispuré. (L)\nVeg\nRostad blomkål\nBakad tomat, smörig kålbuljong och selleri- och kålsallad. (L)\nFredag\nPulled pork- hamburgare\nRödkålsslaw, saltgurka, rostad majs och friterad potatis. (G, Ä)\nVeg\nPanerad rotselleri\nRödkålsslaw, saltgurka, rostad majs och friterad potatis. (G, Ä)",
       "week": 47,
       "year": 2026,
-      "config": "https://ekkallanmatodryck.se/ekkallan-storgatan/|Dagens lunch|After work|"
+      "config": "https://oksmakochtak.se/lunchmeny/|Måndag – fredag||Ladda ner meny"
+    },
+    "melins": {
+      "ok": true,
+      "text": "LUNCH\nLunchen serveras på vardagar mellan kl: 11.15-13.30\nPå menyn hittar ni maträtter med inspiration från medelhavet.\nVi har alltid en fiskrätt och vegetariska alternativ. Utöver dagens rätter kan du välja goda pastarätter och fräscha sallader, poke bowls och matvåfflor.\nVeckans lunch\nsalladsbuffé ingår\nUngsbakad lax med paq choi, ris, salladslök och ponzusås 139 kr\nRaggmunksvåffla med bacon, rårörda lingon och grönkålschips 139 kr\nPasta Alfredo 145 kr\nBlomkålssoppa med ostsmörgås 109 kr\nZucchini och fetaostsallad 99 kr\nVeckans erbjudande 99 kr\nFajitakykling med ris, het mangosalsa, salladslök, nachos och jalapeños\nRaggmunksvåffla med bacon, grönkålschips och rårörda lingon 139 kr\nPasta Alfredo 145 kr\nBlomkålssoppa och ostsmörgås 109 kr\nVeckans erbjudande 99 kr\nSalladsbuffe samt egenrostad kaffe ingår\nVälkomna!",
+      "week": null,
+      "config": "https://www.melinscafe.se/lunch|LUNCH|bottom of page|"
+    },
+    "bon-bon": {
+      "ok": true,
+      "text": "Lunch v.47\nVardagar kl 11.30 - 14.00\nTill lunchen ingår bordsvatten, bröd, färskost och kaffe.\nDagens Rätt\n155\nMåndag\nKalvfärslimpa med champinjonsås, gelé, rostade morötter och kokt potatis\n155\nTisdag\nSkomakarlåda på svensk kyckling med potatispuré, bacon, purjolök och rödvinssky\n155\nOnsdag\nFriterad svensk fläskschnitzel Caesar style med romansallad, caesardressing, rödlök, bacon och krutonger\n155\nTorsdag\nKryddig lammgryta på svenskt lamm med pepperoni, tomat, linser, rostad potatis, citronkräm och persilja\n155\nFredag\nGrillad dubbelmarinerad fläskfilé med rostad potatis, bearnaisesås och chimichurri\n155\nVeckans Val\n199\nVeckans Special\nNattbakade, örtmarinerade fläskracks från svensk Durocgris med svamprisotto, gremolata, friterad kål och riven parmesan\n199\n169\nVeckans Fisk\nRegnbågslax med hummersås, broccoli, kokt potatis, citronkräm och örtsallad\n169\n149\nVeckans Vegetariska\nSvamprisotto med rostad pumpa, burrata, gremolata, friterad kål och riven parmesan\n149",
+      "week": 47,
+      "year": 2026,
+      "config": "https://www.bonbonbrasserie.se/lunch-meny|Lunch v.|À La Carte|"
     }
   }
 }
