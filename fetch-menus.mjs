@@ -33,7 +33,7 @@ function detectWeek(text) {
 }
 
 // Changing a restaurant's URL or trim markers forces a refetch of that restaurant.
-const configKey = (r) => [r.lunchUrl, r.start || '', r.end || ''].join('|');
+const configKey = (r) => [r.lunchUrl, r.start || '', r.end || '', r.weekTabs || ''].join('|');
 const now = swedishIsoWeek();
 
 function decodeEntities(s) {
@@ -85,10 +85,33 @@ async function fetchOne(r) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const page = htmlToText(await res.text());
   let text = crop(page, r.start, r.end);
+  let week = null;
+  if (r.weekTabs) ({ text, week } = pickWeekTab(text, r.weekTabs));
   if (text.length > MAX_CHARS) text = text.slice(0, MAX_CHARS) + '\n…';
   if (text.length < 40) throw new Error('No menu text found (page may be built with JavaScript or use an image/PDF)');
   // Week number usually sits in the menu; some pages put it just above the trimmed part.
-  return { text, week: detectWeek(text) ?? detectWeek(page) };
+  return { text, week: week ?? detectWeek(text) ?? detectWeek(page) };
+}
+
+// For pages that show several weeks as tabs ("V.46 | V.47 | V.48", then one block per week,
+// each ending with `separator`): keep the intro and only the block for the current week.
+function pickWeekTab(text, separator) {
+  const lines = text.split('\n');
+  const isTab = (l) => /^v(?:ecka)?\.?\s*\d{1,2}$/i.test(l);
+  const first = lines.findIndex(isTab);
+  if (first < 0) return { text, week: null };
+  let last = first;
+  while (last < lines.length && isTab(lines[last])) last++;
+  const weeks = lines.slice(first, last).map((l) => Number(l.match(/\d+/)[0]));
+  const blocks = [];
+  let cur = [];
+  for (const l of lines.slice(last)) {
+    if (l.toLowerCase().startsWith(separator.toLowerCase())) { blocks.push(cur); cur = []; } else cur.push(l);
+  }
+  if (cur.length) blocks.push(cur);
+  let i = weeks.indexOf(now.week);
+  if (i < 0 || !blocks[i]?.length) i = 0; // current week not listed yet: show the first one
+  return { text: [...lines.slice(0, first), `V.${weeks[i]}`, ...blocks[i]].join('\n'), week: weeks[i] };
 }
 
 const isCurrent = (m) => m?.ok && m.week === now.week && m.year === now.year;

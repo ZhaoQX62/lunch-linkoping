@@ -53,7 +53,7 @@
     "address": "Brandmannagatan 1, Linköping",
     "lunchUrl": "https://oksmakochtak.se/lunchmeny/",
     "start": "Måndag – fredag",
-    "end": "Ladda ner meny"
+    "weekTabs": "Ladda ner meny"
   },
   {
     "id": "bon-bon",
