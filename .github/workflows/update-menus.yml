@@ -5,9 +5,9 @@
 # checks do nothing (no commit, no deploy). They catch restaurants that publish late
 # (often Monday after 10:00) and sites that were down at an earlier check.
 #
-# Why hourly: GitHub starts scheduled runs late on small repos (observed 7.5–8.5 hours in
-# Nov 2026), and can skip some. A check every hour means that whatever the delay is, some
-# check lands during the morning. Each check takes ~20 s; free for a public repo.
+# Main trigger: Task Scheduler on the owner's PC starts this workflow (workflow_dispatch) on
+# weekday mornings – see tools/. GitHub's own schedule starts hours late on small repos
+# (observed 7.5–8.5 h in Nov 2026), so the hourly schedule below is only a backup.
 name: Update lunch menus
 
 on:
@@ -58,11 +58,11 @@ jobs:
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
-      # Scheduled checks that changed nothing skip the deploy; pushes and manual runs always deploy.
-      - if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+      # Checks that changed nothing skip the deploy; code pushes and forced runs always deploy.
+      - if: steps.commit.outputs.changed == 'true' || github.event_name == 'push' || inputs.force
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
       - id: deploy
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+        if: steps.commit.outputs.changed == 'true' || github.event_name == 'push' || inputs.force
         uses: actions/deploy-pages@v4
