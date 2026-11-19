@@ -15,7 +15,8 @@ A small personal PWA that shows today's lunch from a list of restaurants you cho
 ## When menus are refreshed
 
 **Main trigger – Task Scheduler on this PC:** the task "Lunch Linkoping - update menus" runs
-`tools/trigger-menu-update.ps1` Mon–Fri at 09:00, 10:30 and 12:00. It asks GitHub to start the
+`tools/trigger-menu-update.ps1` on Monday at 09:00, 10:30 and 12:00 (restaurants often publish
+the new week late), and Tuesday–Friday at 09:00. It asks GitHub to start the
 workflow right away, using the GitHub login Git already has saved (no token stored anywhere).
 It only runs while the PC is on and you're logged in; a missed time runs as soon as the PC is back.
 Log: `%LOCALAPPDATA%\LunchLinkoping\trigger.log`.

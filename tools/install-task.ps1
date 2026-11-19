@@ -5,13 +5,18 @@
 $ErrorActionPreference = 'Stop'
 $TaskName = 'Lunch Linkoping - update menus'
 $Script   = Join-Path $PSScriptRoot 'trigger-menu-update.ps1'
-$Times    = '09:00', '10:30', '12:00'   # local (Swedish) time, Monday to Friday
+# Local (Swedish) time. Monday: three checks, since many restaurants publish the new week's
+# menu late in the morning. Tuesday to Friday: one check is enough.
+$MondayTimes  = '09:00', '10:30', '12:00'
+$WeekdayTimes = '09:00'
 
 $action = New-ScheduledTaskAction -Execute 'powershell.exe' `
   -Argument "-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$Script`""
 
-$days = 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'
-$triggers = foreach ($t in $Times) { New-ScheduledTaskTrigger -Weekly -DaysOfWeek $days -At $t }
+$triggers = @(
+  foreach ($t in $MondayTimes)  { New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At $t }
+  foreach ($t in $WeekdayTimes) { New-ScheduledTaskTrigger -Weekly -DaysOfWeek Tuesday, Wednesday, Thursday, Friday -At $t }
+)
 
 # StartWhenAvailable: if the PC was asleep/off at a set time, run as soon as it's back.
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
